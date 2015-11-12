@@ -5,6 +5,7 @@ class GameScene < BaseScene
     super
 
     @start_time = nil
+    @countdown = 2
     @touch_enabled = false
     init_grid
     puts @numbers
@@ -32,11 +33,6 @@ class GameScene < BaseScene
     addChild label
   end
 
-  def update(current_time)
-    @delta = @last_update_time ? current_time - @last_update_time : 0
-    @last_update_time = current_time
-  end
-
   def pos_x(pos)
     (0.5 + pos % 4) * (max_x / 4)  
   end
@@ -45,18 +41,34 @@ class GameScene < BaseScene
     (0.25 + pos / 4) * (max_y / 8)
   end
 
+  def update(current_time)
+    @start_time = current_time if !@start_time
+    if !@touch_enabled && current_time - @start_time >= @countdown
+      @touch_enabled = true
+      @numbers.each do |number|
+        number_label = childNodeWithName(number.value.to_s)
+        number_label.text = '*'
+      end
+    end
+  end
+
   def touchesBegan(touches, withEvent: event)
+    return if !@touch_enabled
+
     touch = touches.anyObject
     location = touch.locationInNode(self)
     node = nodeAtPoint(location)
     puts node.name
 
-    if @numbers.shift.value != node.name.to_i
+    number = @numbers.shift
+    if number.value != node.name.to_i
       scene = ScoreScene.alloc.initWithSize(self.view.bounds.size)
       scene.scaleMode = SKSceneScaleModeAspectFill
       self.view.presentScene scene
       return
     end
+
+    node.text = number.value.to_s
 
     self.view.score += self.view.difficulty * 10
 
