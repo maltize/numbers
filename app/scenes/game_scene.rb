@@ -52,6 +52,7 @@ class GameScene < BaseScene
       scene = ScoreScene.alloc.initWithSize(self.view.bounds.size)
       scene.scaleMode = SKSceneScaleModeAspectFill
       self.view.presentScene scene
+      return
     end
 
     self.view.score += self.view.difficulty * 10
