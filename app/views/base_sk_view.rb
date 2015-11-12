@@ -5,5 +5,6 @@ class BaseSKView < SKView
     @high_score = [@high_score, new_score].max
     @defaults = NSUserDefaults.standardUserDefaults
     @defaults['high'] = @high_score
+    @defaults['level'] = self.difficulty
   end
 end

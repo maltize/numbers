@@ -6,7 +6,7 @@ class GameViewController < UIViewController
     view.showsDrawCount = true
 
     @defaults = NSUserDefaults.standardUserDefaults
-    view.difficulty = 1
+    view.difficulty = @defaults['level'] || 1
     view.score = 0
     view.high_score = @defaults['high'] || 0
 
