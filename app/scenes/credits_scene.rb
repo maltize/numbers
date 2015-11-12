@@ -15,17 +15,38 @@ class CreditsScene < BaseScene
     label.name = "credits"
     addChild label
 
+    texture = SKTexture.textureWithImageNamed("profile-ak.png")
+    image = SKSpriteNode.spriteNodeWithTexture(texture)
+    image.position = CGPointMake(mid_x, (max_y / 8) * 4 + 50)
+    image.name = 'profile-ak'
+    image.size = CGSizeMake(48, 48)
+    addChild image
+
     label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
     label.text = "Akshay Kumar"
     label.position = CGPointMake(mid_x, (max_y / 8) * 4)
     label.name = "ak"
     addChild label
 
+    texture = SKTexture.textureWithImageNamed("profile-gs.png")
+    image = SKSpriteNode.spriteNodeWithTexture(texture)
+    image.position = CGPointMake(mid_x, (max_y / 8) * 3 + 50)
+    image.name = 'profile-gs'
+    image.size = CGSizeMake(48, 48)
+    addChild image
+
     label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
     label.text = "Grzegorz Smajdor"
     label.position = CGPointMake(mid_x, (max_y / 8) * 3)
     label.name = "gs"
     addChild label
+
+    texture = SKTexture.textureWithImageNamed("profile-mg.png")
+    image = SKSpriteNode.spriteNodeWithTexture(texture)
+    image.position = CGPointMake(mid_x, (max_y / 8) * 2 + 50)
+    image.name = 'profile-mg'
+    image.size = CGSizeMake(48, 48)
+    addChild image
 
     label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
     label.text = "Maciej Gajek"
