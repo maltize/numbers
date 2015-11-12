@@ -10,7 +10,7 @@ class ScoreScene < BaseScene
 
   def add_scores_titles(your_score, high_score)
     label = SKLabelNode.labelNodeWithFontNamed("Zapfino")
-    label.text = "Hi-Score"
+    label.text = "Game Over"
     label.fontSize *= 1.25
     label.position = CGPointMake(mid_x, (max_y / 4) * 3)
     label.name = "hiscore"
