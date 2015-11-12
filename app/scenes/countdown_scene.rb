@@ -4,7 +4,17 @@ class CountDownScene < BaseScene
     super
     @start_time = nil
     @countdown = 3
+    level_label
     counter_label
+  end
+
+  def level_label
+    label = SKLabelNode.labelNodeWithFontNamed("Zapfino")
+    label.text = "Level #{self.view.difficulty}"
+    label.fontSize *= 1.5
+    label.position = CGPointMake(mid_x, (max_y / 4) * 3)
+    label.name = "level_label"
+    addChild label
   end
 
   def counter_label

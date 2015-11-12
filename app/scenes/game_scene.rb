@@ -74,7 +74,7 @@ class GameScene < BaseScene
 
     if @numbers.empty?
       self.view.difficulty += 1
-      scene = GameScene.alloc.initWithSize(self.view.bounds.size)
+      scene = CountDownScene.alloc.initWithSize(self.view.bounds.size)
       scene.scaleMode = SKSceneScaleModeAspectFill
       self.view.presentScene scene
     end
