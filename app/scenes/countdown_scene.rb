@@ -1,47 +1,39 @@
-class CountDownScene < SKScene
+class CountDownScene < BaseScene
 
   def didMoveToView(view)
     super
-
-    add_background
-    add_title_label
+    @start_time = nil
+    @countdown = 3
+    counter_label
   end
 
-  def add_background
-    texture = SKTexture.textureWithImageNamed("numbers-bg.png")
-
-    background = SKSpriteNode.spriteNodeWithTexture(texture)
-    background.position = CGPointMake(mid_x, mid_y)
-    background.name = "background"
-    background.zPosition = -20
-    background.scale = 1
-
-    addChild background
-  end
-
-  def add_title_label
+  def counter_label
     label = SKLabelNode.labelNodeWithFontNamed("Zapfino")
-    label.text = "DUPA"
-    label.position = CGPointMake(mid_x, 500) # Should calculate this dynamically based on screen size
-    label.name = "title"
+    label.text = @countdown.to_s
+    label.position = CGPointMake(mid_x, mid_y)
+    label.fontSize *= 4
+    label.name = "counting"
     addChild label
   end
 
   def update(current_time)
-    @delta = @last_update_time ? current_time - @last_update_time : 0
-    puts 'scene 2'
-    puts @delta
-    @last_update_time = current_time
+    @start_time = current_time if !@start_time
+    if current_time - @start_time >= 1
+      @countdown -= 1
+      if @countdown == 0
+        scene = GameScene.alloc.initWithSize(view.bounds.size)
+        scene.scaleMode = SKSceneScaleModeAspectFill
+        self.view.presentScene scene
+      else
+        update_counter
+        @start_time = current_time
+      end
+    end
   end
 
-
-  # Helper methods.
-  #
-  def mid_x
-    CGRectGetMidX(self.frame)
+  def update_counter
+    counter_label = childNodeWithName('counting')
+    counter_label.text = @countdown.to_s
   end
 
-  def mid_y
-    CGRectGetMidY(self.frame)
-  end
 end

@@ -1,4 +1,4 @@
-class GameScene < SKView
+class GameScene < BaseScene
 
   def didMoveToView(view)
     super
@@ -9,22 +9,9 @@ class GameScene < SKView
   def add_title_label
     label = SKLabelNode.labelNodeWithFontNamed("Zapfino")
     label.text = "DaGame"
-    label.position = CGPointMake(mid_x, 500) # Should calculate this dynamically based on screen size
+    label.position = CGPointMake(mid_x, mid_y)
     label.name = "dagame"
     addChild label
   end
 
-
-  def game
-  end
-
-  # Helper methods.
-  #
-  def mid_x
-    CGRectGetMidX(self.frame)
-  end
-
-  def mid_y
-    CGRectGetMidY(self.frame)
-  end
 end
