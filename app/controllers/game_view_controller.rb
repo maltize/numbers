@@ -6,6 +6,7 @@ class GameViewController < UIViewController
     view.showsDrawCount = true
     view.difficulty = 1
     view.score = 0
+    view.high_score = 0
 
     self.view = view
   end
