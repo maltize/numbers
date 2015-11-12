@@ -4,11 +4,11 @@ class CountDownScene < BaseScene
     super
     @start_time = nil
     @countdown = 3
-    level_label
-    counter_label
+    add_level_label
+    add_counter_label
   end
 
-  def level_label
+  def add_level_label
     label = SKLabelNode.labelNodeWithFontNamed("Zapfino")
     label.text = "Level #{self.view.difficulty}"
     label.fontSize *= 1.5
@@ -17,10 +17,10 @@ class CountDownScene < BaseScene
     addChild label
   end
 
-  def counter_label
+  def add_counter_label
     label = SKLabelNode.labelNodeWithFontNamed("Zapfino")
     label.text = @countdown.to_s
-    label.position = CGPointMake(mid_x, mid_y)
+    label.position = CGPointMake(mid_x, (max_y / 8) * 3)
     label.fontSize *= 4
     label.name = "counting"
     addChild label
@@ -39,6 +39,9 @@ class CountDownScene < BaseScene
         @start_time = current_time
       end
     end
+
+    counter_label = childNodeWithName('counting')
+    counter_label.position = CGPointMake(mid_x, counter_label.position.y - 1)
   end
 
   def update_counter

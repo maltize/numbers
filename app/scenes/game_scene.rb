@@ -62,9 +62,7 @@ class GameScene < BaseScene
 
     number = @numbers.shift
     if number.value != node.name.to_i
-      scene = ScoreScene.alloc.initWithSize(self.view.bounds.size)
-      scene.scaleMode = SKSceneScaleModeAspectFill
-      self.view.presentScene scene
+      go_to_score_scene
       return
     end
 
@@ -74,9 +72,19 @@ class GameScene < BaseScene
 
     if @numbers.empty?
       self.view.difficulty += 1
-      scene = CountDownScene.alloc.initWithSize(self.view.bounds.size)
-      scene.scaleMode = SKSceneScaleModeAspectFill
-      self.view.presentScene scene
+      if self.view.difficulty >= 30
+        go_to_score_scene
+      else
+        scene = CountDownScene.alloc.initWithSize(self.view.bounds.size)
+        scene.scaleMode = SKSceneScaleModeAspectFill
+        self.view.presentScene scene
+      end
     end
+  end
+
+  def go_to_score_scene
+    scene = ScoreScene.alloc.initWithSize(self.view.bounds.size)
+    scene.scaleMode = SKSceneScaleModeAspectFill
+    self.view.presentScene scene
   end
 end
