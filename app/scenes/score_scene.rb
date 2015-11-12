@@ -32,7 +32,7 @@ class ScoreScene < BaseScene
   def add_try_again_label
     label = SKLabelNode.labelNodeWithFontNamed('Gill Sans')
     label.text = 'Try Again'
-    label.fontSize *= 0.75
+    label.fontSize *= 1.5
     label.position = CGPointMake(mid_x, (max_y / 16) * 4)
     label.name = 'tryagain'
     addChild label
@@ -41,7 +41,7 @@ class ScoreScene < BaseScene
   def add_back_label
     label = SKLabelNode.labelNodeWithFontNamed('Gill Sans')
     label.text = 'Menu'
-    label.fontSize *= 0.75
+    label.fontSize *= 1.5
     label.position = CGPointMake(mid_x, (max_y / 16) * 2)
     label.name = 'back'
     addChild label
