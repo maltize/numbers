@@ -8,7 +8,7 @@ class MenuScene < SKScene
     add_background
     add_title_label
     add_start_label
-    add_difficulty_label
+    add_difficulty_labels
     add_credits_label
   end
 
@@ -29,11 +29,23 @@ class MenuScene < SKScene
     addChild label
   end
 
-  def add_difficulty_label
+  def add_difficulty_labels
     label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
     label.text = "Difficulty #{@difficulty}"
     label.position = CGPointMake(mid_x, (max_y / 8) * 3)
     label.name = "difficulty"
+    addChild label
+
+    label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
+    label.text = "<"
+    label.position = CGPointMake((max_x / 16) * 3, (max_y / 8) * 3)
+    label.name = "decrease_difficulty"
+    addChild label
+
+    label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
+    label.text = ">"
+    label.position = CGPointMake((max_x / 16) * 13, (max_y / 8) * 3)
+    label.name = "increase_difficulty"
     addChild label
   end
 
@@ -63,8 +75,6 @@ class MenuScene < SKScene
   end
 
   def touchesBegan(touches, withEvent: event)
-    puts "You touched me!"
-
     touch = touches.anyObject
     location = touch.locationInNode(self)
     puts "touch at x: #{location.x}, y: #{location.y}"
@@ -75,14 +85,18 @@ class MenuScene < SKScene
       scene = CountDownScene.alloc.initWithSize(view.bounds.size)
       scene.scaleMode = SKSceneScaleModeAspectFill
       self.view.presentScene scene
-    else
-      # I don't now :)
+    elsif node.name == "increase_difficulty"
+      @difficulty += 1 if @difficulty < 99
+      difficulty_label = childNodeWithName('difficulty')
+      difficulty_label.text = "Difficulty #{@difficulty}"
+    elsif node.name == "decrease_difficulty"
+      @difficulty -= 1 if @difficulty > 1
+      difficulty_label = childNodeWithName('difficulty')
+      difficulty_label.text = "Difficulty #{@difficulty}"
     end
 
   end
 
-  # Helper methods.
-  #
   def mid_x
     CGRectGetMidX(self.frame)
   end
