@@ -5,13 +5,41 @@ class MenuScene < SKScene
 
     add_background
     add_title_label
+    add_start_label
+    add_difficulty_label
+    add_credits_label
   end
 
   def add_title_label
     label = SKLabelNode.labelNodeWithFontNamed("Zapfino")
     label.text = "Numbers"
+    label.fontSize *= 1.5
     label.position = CGPointMake(mid_x, (max_y / 4) * 3)
     label.name = "numbers"
+    addChild label
+  end
+
+  def add_start_label
+    label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
+    label.text = "Start"
+    label.position = CGPointMake(mid_x, (max_y / 8) * 4)
+    label.name = "start"
+    addChild label
+  end
+
+  def add_difficulty_label
+    label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
+    label.text = "Difficulty"
+    label.position = CGPointMake(mid_x, (max_y / 8) * 3)
+    label.name = "difficulty"
+    addChild label
+  end
+
+  def add_credits_label
+    label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
+    label.text = "Credits"
+    label.position = CGPointMake(mid_x, (max_y / 8) * 2)
+    label.name = "credits"
     addChild label
   end
 
