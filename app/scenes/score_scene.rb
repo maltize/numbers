@@ -2,6 +2,7 @@ class ScoreScene < BaseScene
   def didMoveToView(view)
     super
 
+    view.update_high_score(self.view.score)
     add_scores_titles(view.score, view.high_score)
   end
 

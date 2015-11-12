@@ -42,4 +42,25 @@ class GameScene < BaseScene
     (0.25 + pos / 4) * (max_y / 8)
   end
 
+  def touchesBegan(touches, withEvent: event)
+    touch = touches.anyObject
+    location = touch.locationInNode(self)
+    node = nodeAtPoint(location)
+    puts node.name
+
+    if @numbers.shift.value.to_s != node.name
+      scene = ScoreScene.alloc.initWithSize(self.view.bounds.size)
+      scene.scaleMode = SKSceneScaleModeAspectFill
+      self.view.presentScene scene
+    end
+
+    self.view.score += self.view.difficulty * 10
+
+    if @numbers.empty?
+      self.view.difficulty += 1
+      scene = GameScene.alloc.initWithSize(self.view.bounds.size)
+      scene.scaleMode = SKSceneScaleModeAspectFill
+      self.view.presentScene scene
+    end
+  end
 end
