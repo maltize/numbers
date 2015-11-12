@@ -8,9 +8,9 @@ class CreditsScene < BaseScene
   end
 
   def add_credits_labels
-    label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
+    label = SKLabelNode.labelNodeWithFontNamed("Zapfino")
     label.text = "Credits"
-    label.fontSize *= 1.5
+    label.fontSize *= 1.25
     label.position = CGPointMake(mid_x, (max_y / 4) * 3)
     label.name = "credits"
     addChild label
