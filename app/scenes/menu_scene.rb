@@ -10,7 +10,7 @@ class MenuScene < SKScene
   def add_title_label
     label = SKLabelNode.labelNodeWithFontNamed("Zapfino")
     label.text = "Numbers"
-    label.position = CGPointMake(mid_x, 500) # Should calculate this dynamically based on screen size
+    label.position = CGPointMake(mid_x, (max_y / 4) * 3)
     label.name = "title"
     addChild label
   end
@@ -61,5 +61,13 @@ class MenuScene < SKScene
 
   def mid_y
     CGRectGetMidY(self.frame)
+  end
+
+  def max_x
+    CGRectGetMaxX(self.frame)
+  end
+
+  def max_y
+    CGRectGetMaxY(self.frame)
   end
 end
