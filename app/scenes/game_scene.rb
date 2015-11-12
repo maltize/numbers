@@ -3,9 +3,12 @@ class GameScene < BaseScene
 
   def didMoveToView(view)
     super
+
+    @start_time = nil
+    @touch_enabled = false
     init_grid
     puts @numbers
-    run_game
+    render_board
   end
 
   def init_grid
@@ -16,7 +19,7 @@ class GameScene < BaseScene
     end
   end
 
-  def run_game
+  def render_board
     @numbers.each { |number| render_number(number) }
   end
 
@@ -48,20 +51,19 @@ class GameScene < BaseScene
     node = nodeAtPoint(location)
     puts node.name
 
-    if @numbers.shift.value.to_s != node.name
+    if @numbers.shift.value != node.name.to_i
       scene = ScoreScene.alloc.initWithSize(self.view.bounds.size)
       scene.scaleMode = SKSceneScaleModeAspectFill
       self.view.presentScene scene
-      return
-    end
+    else
+      self.view.score += self.view.difficulty * 10
 
-    self.view.score += self.view.difficulty * 10
-
-    if @numbers.empty?
-      self.view.difficulty += 1
-      scene = GameScene.alloc.initWithSize(self.view.bounds.size)
-      scene.scaleMode = SKSceneScaleModeAspectFill
-      self.view.presentScene scene
+      if @numbers.empty?
+        self.view.difficulty += 1
+        scene = GameScene.alloc.initWithSize(self.view.bounds.size)
+        scene.scaleMode = SKSceneScaleModeAspectFill
+        self.view.presentScene scene
+      end
     end
   end
 end
