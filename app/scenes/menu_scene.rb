@@ -7,7 +7,7 @@ class MenuScene < BaseScene
     add_start_label
     add_difficulty_labels
     add_credits_label
-    view.high_score = 0
+    view.score = 0
   end
 
   def add_title_label

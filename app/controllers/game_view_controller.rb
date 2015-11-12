@@ -7,6 +7,7 @@ class GameViewController < UIViewController
     view.difficulty = 1
     view.high_score = 0
     view.score = 0
+    view.high_score = 0
 
     self.view = view
   end
