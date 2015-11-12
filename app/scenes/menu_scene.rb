@@ -3,8 +3,6 @@ class MenuScene < BaseScene
   def didMoveToView(view)
     super
 
-    @difficulty = 1
-
     add_title_label
     add_start_label
     add_difficulty_labels
@@ -30,7 +28,7 @@ class MenuScene < BaseScene
 
   def add_difficulty_labels
     label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
-    label.text = "Difficulty #{@difficulty}"
+    label.text = "Difficulty #{self.view.difficulty}"
     label.position = CGPointMake(mid_x, (max_y / 8) * 3)
     label.name = "difficulty"
     addChild label
@@ -73,13 +71,13 @@ class MenuScene < BaseScene
       scene.scaleMode = SKSceneScaleModeAspectFill
       self.view.presentScene scene
     elsif node.name == "increase_difficulty"
-      @difficulty += 1 if @difficulty < 99
+      self.view.difficulty += 1 if self.view.difficulty < 99
       difficulty_label = childNodeWithName('difficulty')
-      difficulty_label.text = "Difficulty #{@difficulty}"
+      difficulty_label.text = "Difficulty #{self.view.difficulty}"
     elsif node.name == "decrease_difficulty"
-      @difficulty -= 1 if @difficulty > 1
+      self.view.difficulty -= 1 if self.view.difficulty > 1
       difficulty_label = childNodeWithName('difficulty')
-      difficulty_label.text = "Difficulty #{@difficulty}"
+      difficulty_label.text = "Difficulty #{self.view.difficulty}"
     elsif node.name == "credits"
       scene = CreditsScene.alloc.initWithSize(view.bounds.size)
       scene.scaleMode = SKSceneScaleModeAspectFill

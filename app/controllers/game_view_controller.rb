@@ -1,9 +1,11 @@
 class GameViewController < UIViewController
   def loadView
-    view = SKView.new
+    view = BaseSKView.new
     view.showsFPS = true
     view.showsNodeCount = true
     view.showsDrawCount = true
+    view.difficulty = 1
+    view.score = 0
 
     self.view = view
   end
