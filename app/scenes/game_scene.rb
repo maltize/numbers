@@ -41,13 +41,37 @@ class GameScene < BaseScene
     (0.25 + pos / 4) * (max_y / 8) + Random.new.rand(-10..10)
   end
 
+  def add_star(position, name)
+    texture = SKTexture.textureWithImageNamed("numbers-star.png")
+
+    star = SKSpriteNode.spriteNodeWithTexture(texture)
+    star.position = position
+    star.name = name
+    star.size = CGSizeMake(65, 65)
+    star.anchorPoint = CGPointMake(0.5, 0.1)
+
+    addChild star
+  end
+
+  def add_number(position, name)
+    label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
+    label.fontSize *= 2
+    label.text = name
+    label.position = position
+    label.name = name
+
+    addChild label
+  end
+
   def update(current_time)
     @start_time = current_time if !@start_time
     if !@touch_enabled && current_time - @start_time >= @countdown
       @touch_enabled = true
       @numbers.each do |number|
         number_label = childNodeWithName(number.value.to_s)
-        number_label.text = '*'
+        removeChild(number_label)
+
+        add_star(number_label.position, number_label.name)
       end
     end
   end
@@ -66,7 +90,8 @@ class GameScene < BaseScene
       return
     end
 
-    node.text = number.value.to_s
+    removeChild(node)
+    add_number(node.position, node.name)
 
     self.view.score += self.view.difficulty * 10
 

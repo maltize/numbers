@@ -35,13 +35,13 @@ class MenuScene < BaseScene
     addChild label
 
     label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
-    label.text = "<"
+    label.text = "<<<"
     label.position = CGPointMake((max_x / 16) * 3, (max_y / 8) * 3)
     label.name = "decrease_difficulty"
     addChild label
 
     label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
-    label.text = ">"
+    label.text = ">>>"
     label.position = CGPointMake((max_x / 16) * 13, (max_y / 8) * 3)
     label.name = "increase_difficulty"
     addChild label
