@@ -17,7 +17,7 @@ class CreditsScene < BaseScene
 
     texture = SKTexture.textureWithImageNamed("profile-ak.png")
     image = SKSpriteNode.spriteNodeWithTexture(texture)
-    image.position = CGPointMake(mid_x, (max_y / 8) * 4 + 50)
+    image.position = CGPointMake(mid_x, (max_y / 8) * 4 + 48)
     image.name = 'profile-ak'
     image.size = CGSizeMake(48, 48)
     addChild image
@@ -30,7 +30,7 @@ class CreditsScene < BaseScene
 
     texture = SKTexture.textureWithImageNamed("profile-gs.png")
     image = SKSpriteNode.spriteNodeWithTexture(texture)
-    image.position = CGPointMake(mid_x, (max_y / 8) * 3 + 50)
+    image.position = CGPointMake(mid_x, (max_y / 8) * 3 + 48)
     image.name = 'profile-gs'
     image.size = CGSizeMake(48, 48)
     addChild image
@@ -43,7 +43,7 @@ class CreditsScene < BaseScene
 
     texture = SKTexture.textureWithImageNamed("profile-mg.png")
     image = SKSpriteNode.spriteNodeWithTexture(texture)
-    image.position = CGPointMake(mid_x, (max_y / 8) * 2 + 50)
+    image.position = CGPointMake(mid_x, (max_y / 8) * 2 + 48)
     image.name = 'profile-mg'
     image.size = CGSizeMake(48, 48)
     addChild image
