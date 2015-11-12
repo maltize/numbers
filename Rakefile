@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 $:.unshift("/Library/RubyMotion/lib")
 require 'motion/project/template/ios'
+require './.key'
 
 begin
   require 'bundler'
@@ -13,6 +14,6 @@ Motion::Project::App.setup do |app|
   app.frameworks += ["SpriteKit"]
   app.interface_orientations = [:portrait]
 
-  app.identifier = 'yelp.hackathon.Numbers'
-  app.provisioning_profile = '/Users/maciej/Library/MobileDevice/Provisioning Profiles/c381cbb2-42c3-43e5-b192-befe704d4437.mobileprovision'
+  app.identifier = IDENTIFIER
+  app.provisioning_profile = PROVISIONING_PROFILE
 end
