@@ -4,10 +4,11 @@ class GameViewController < UIViewController
     view.showsFPS = true
     view.showsNodeCount = true
     view.showsDrawCount = true
+
+    @defaults = NSUserDefaults.standardUserDefaults
     view.difficulty = 1
-    view.high_score = 0
     view.score = 0
-    view.high_score = 0
+    view.high_score = @defaults['high'] || 0
 
     self.view = view
   end
