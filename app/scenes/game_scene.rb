@@ -34,11 +34,11 @@ class GameScene < BaseScene
   end
 
   def pos_x(pos)
-    (0.5 + pos % 4) * (max_x / 4)  
+    (0.5 + pos % 4) * (max_x / 4) + Random.new.rand(-10..10)
   end
   
   def pos_y(pos)
-    (0.25 + pos / 4) * (max_y / 8)
+    (0.25 + pos / 4) * (max_y / 8) + Random.new.rand(-10..10)
   end
 
   def update(current_time)
