@@ -5,6 +5,7 @@ class ScoreScene < BaseScene
     view.update_high_score(view.score)
     add_scores_titles(view.score, view.high_score)
     add_back_to_main_menu_label
+    add_try_again_label
   end
 
   def add_scores_titles(your_score, high_score)
@@ -24,8 +25,16 @@ class ScoreScene < BaseScene
   def add_back_to_main_menu_label
     label = SKLabelNode.labelNodeWithFontNamed('Gill Sans')
     label.text = 'Back to Menu'
+    label.position = CGPointMake(mid_x, (max_y / 12) * 3)
+    label.name = 'back'
+    addChild label
+  end
+
+  def add_try_again_label
+    label = SKLabelNode.labelNodeWithFontNamed('Gill Sans')
+    label.text = 'Try Again'
     label.position = CGPointMake(mid_x, (max_y / 12) * 4)
-    label.name = "back"
+    label.name = 'tryagain'
     addChild label
   end
 
@@ -34,8 +43,13 @@ class ScoreScene < BaseScene
     location = touch.locationInNode(self)
     node = nodeAtPoint(location)
 
-    if node.name == "back"
+    if node.name == 'back'
       scene = MenuScene.alloc.initWithSize(view.bounds.size)
+      scene.scaleMode = SKSceneScaleModeAspectFill
+      self.view.presentScene scene
+    elsif node.name == 'tryagain'
+      self.view.score = 0
+      scene = CountDownScene.alloc.initWithSize(view.bounds.size)
       scene.scaleMode = SKSceneScaleModeAspectFill
       self.view.presentScene scene
     end
