@@ -71,7 +71,7 @@ class MenuScene < BaseScene
       scene.scaleMode = SKSceneScaleModeAspectFill
       self.view.presentScene scene
     elsif node.name == "increase_difficulty"
-      self.view.difficulty += 1 if self.view.difficulty < 99
+      self.view.difficulty += 1 if self.view.difficulty < 9
       difficulty_label = childNodeWithName('difficulty')
       difficulty_label.text = "Difficulty #{self.view.difficulty}"
     elsif node.name == "decrease_difficulty"
