@@ -8,6 +8,9 @@ class MenuScene < BaseScene
     add_difficulty_labels
     add_credits_label
     view.score = 0
+    if view.high_score > 0
+      add_high_score_label
+    end
   end
 
   def add_title_label
@@ -55,6 +58,14 @@ class MenuScene < BaseScene
     addChild label
   end
 
+  def add_high_score_label
+    label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
+    label.text = "High Score"
+    label.position = CGPointMake(mid_x, (max_y / 8) * 1)
+    label.name = "highscore"
+    addChild label
+  end
+
   def update(current_time)
     @delta = @last_update_time ? current_time - @last_update_time : 0
     @last_update_time = current_time
@@ -81,6 +92,10 @@ class MenuScene < BaseScene
       difficulty_label.text = "Difficulty #{self.view.difficulty}"
     elsif node.name == "credits"
       scene = CreditsScene.alloc.initWithSize(view.bounds.size)
+      scene.scaleMode = SKSceneScaleModeAspectFill
+      self.view.presentScene scene
+    elsif node.name == "highscore"
+      scene = ScoreScene.alloc.initWithSize(view.bounds.size)
       scene.scaleMode = SKSceneScaleModeAspectFill
       self.view.presentScene scene
     end
