@@ -11,7 +11,7 @@ class MenuScene < SKScene
     label = SKLabelNode.labelNodeWithFontNamed("Zapfino")
     label.text = "Numbers"
     label.position = CGPointMake(mid_x, (max_y / 4) * 3)
-    label.name = "title"
+    label.name = "numbers"
     addChild label
   end
 
@@ -41,12 +41,10 @@ class MenuScene < SKScene
     node = nodeAtPoint(location)
     puts node.name
 
-    if node.name == "pause"
-      if self.isPaused
-        self.paused = false
-      else
-        self.paused = true
-      end
+    if node.name == "numbers"
+      scene = CountDownScene.alloc.initWithSize(view.bounds.size)
+      scene.scaleMode = SKSceneScaleModeAspectFill
+      self.view.presentScene scene
     else
       # I don't now :)
     end
