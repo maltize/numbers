@@ -1,11 +1,10 @@
-class MenuScene < SKScene
+class MenuScene < BaseScene
 
   def didMoveToView(view)
     super
 
     @difficulty = 1
 
-    add_background
     add_title_label
     add_start_label
     add_difficulty_labels
@@ -57,18 +56,6 @@ class MenuScene < SKScene
     addChild label
   end
 
-  def add_background
-    texture = SKTexture.textureWithImageNamed("numbers-bg.png")
-
-    background = SKSpriteNode.spriteNodeWithTexture(texture)
-    background.position = CGPointMake(mid_x, mid_y)
-    background.name = "background"
-    background.zPosition = -20
-    background.scale = 1
-
-    addChild background
-  end
-
   def update(current_time)
     @delta = @last_update_time ? current_time - @last_update_time : 0
     @last_update_time = current_time
@@ -93,23 +80,11 @@ class MenuScene < SKScene
       @difficulty -= 1 if @difficulty > 1
       difficulty_label = childNodeWithName('difficulty')
       difficulty_label.text = "Difficulty #{@difficulty}"
+    elsif node.name == "credits"
+      scene = CreditsScene.alloc.initWithSize(view.bounds.size)
+      scene.scaleMode = SKSceneScaleModeAspectFill
+      self.view.presentScene scene
     end
 
-  end
-
-  def mid_x
-    CGRectGetMidX(self.frame)
-  end
-
-  def mid_y
-    CGRectGetMidY(self.frame)
-  end
-
-  def max_x
-    CGRectGetMaxX(self.frame)
-  end
-
-  def max_y
-    CGRectGetMaxY(self.frame)
   end
 end
