@@ -25,6 +25,10 @@ class BaseScene < SKScene
     addChild background
   end
 
+  def max_level
+    27
+  end
+
   def mid_x
     CGRectGetMidX(self.frame)
   end
