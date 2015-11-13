@@ -46,8 +46,7 @@ class GameScene < BaseScene
   end
 
   def add_star(position, name)
-    star_number = self.view.difficulty % 4
-    texture = SKTexture.textureWithImageNamed("numbers-star-#{star_number}.png")
+    texture = SKTexture.textureWithImageNamed("numbers-star.png")
 
     star = SKSpriteNode.spriteNodeWithTexture(texture)
     star.position = position
@@ -91,9 +90,11 @@ class GameScene < BaseScene
       return unless @timer
 
       if self.isPaused
+        remove_shadow
         self.paused = false
         @timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target:self, selector:'timerFired', userInfo:nil, repeats:true)
       else
+        add_shadow
         self.paused = true
         @timer.invalidate
       end
@@ -158,6 +159,7 @@ class GameScene < BaseScene
     label.position = CGPointMake(max_x * 7/8, max_y * 15/16)
     label.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeRight
     label.name = 'pause'
+    label.zPosition = 40 # must be above shadow
     addChild label
   end
 

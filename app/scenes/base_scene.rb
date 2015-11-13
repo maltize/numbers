@@ -25,6 +25,23 @@ class BaseScene < SKScene
     addChild background
   end
 
+  def add_shadow
+    texture = SKTexture.textureWithImageNamed("numbers-shadow.png")
+
+    shadow = SKSpriteNode.spriteNodeWithTexture(texture)
+    shadow.position = CGPointMake(mid_x, mid_y)
+    shadow.name = "shadow"
+    shadow.zPosition = 20
+    shadow.scale = 1
+
+    addChild shadow
+  end
+
+  def remove_shadow
+    shadow = childNodeWithName('shadow')
+    removeChild shadow
+  end
+
   def max_level
     27
   end
