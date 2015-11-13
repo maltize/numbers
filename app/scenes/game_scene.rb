@@ -87,6 +87,8 @@ class GameScene < BaseScene
     node = nodeAtPoint(location)
     puts node.name
 
+    return if node.name == 'background'
+
     if node.name == 'pause'
       return unless @timer
 
