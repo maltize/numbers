@@ -108,6 +108,7 @@ class GameScene < BaseScene
 
     number = @numbers.shift
     if number.value != node.name.to_i
+      self.view.score += calculate_score
       go_to_score_scene
       return
     end
@@ -115,9 +116,8 @@ class GameScene < BaseScene
     removeChild(node)
     add_number(node.position, node.name)
 
-    self.view.score += self.view.difficulty * 10
-
     if @numbers.empty?
+      self.view.score += calculate_score
       self.view.difficulty += 1
       if self.view.difficulty >= max_level
         go_to_score_scene
@@ -127,6 +127,16 @@ class GameScene < BaseScene
         self.view.presentScene scene
       end
     end
+  end
+
+  def calculate_score
+    num_blocks = self.view.difficulty + 2
+    correct_blocks = num_blocks - @numbers.length
+    score = correct_blocks * self.view.difficulty * 10
+    puts "Score: #{score} | Time: #{@duration}"
+    normalized_score = score * (1 - ([@duration, 30.0].min / 30.0 * 0.9))
+    puts "Normalized : #{normalized_score.to_i}"
+    normalized_score.to_i
   end
 
   def go_to_score_scene
