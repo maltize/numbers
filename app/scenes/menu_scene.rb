@@ -3,7 +3,7 @@ class MenuScene < BaseScene
   def didMoveToView(view)
     super
 
-    add_title_label
+    add_title_image
     add_start_label
     add_difficulty_labels
     add_credits_label
@@ -13,13 +13,13 @@ class MenuScene < BaseScene
     end
   end
 
-  def add_title_label
-    label = SKLabelNode.labelNodeWithFontNamed("Zapfino")
-    label.text = "Numbers"
-    label.fontSize *= 1.5
-    label.position = CGPointMake(mid_x, (max_y / 4) * 3)
-    label.name = "numbers"
-    addChild label
+  def add_title_image
+    texture = SKTexture.textureWithImageNamed("numbers-title.png")
+    image = SKSpriteNode.spriteNodeWithTexture(texture)
+    image.position = CGPointMake(mid_x, (max_y / 4) * 3)
+    image.name = "numbers"
+    image.scale = 0.5
+    addChild image
   end
 
   def add_start_label
