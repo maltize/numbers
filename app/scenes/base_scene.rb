@@ -15,6 +15,13 @@ class BaseScene < SKScene
     background.zPosition = -20
     background.scale = 1
 
+    # background.color = UIColor.greenColor
+    # background.colorBlendFactor = 0.5
+
+    # Loop over colors?
+    # colorize = SKAction.colorizeWithColor(UIColor.greenColor, colorBlendFactor: 0.5, duration: 5)
+    # background.runAction(colorize)
+
     addChild background
   end
 
