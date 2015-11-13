@@ -10,12 +10,15 @@ class GameScene < BaseScene
     init_grid
     puts @numbers
     render_board
+    add_timer_label
+    add_pause_label
+    @duration = 0
   end
 
   def init_grid
     @numbers = []
     num_blocks = self.view.difficulty + 2
-    (0..31).to_a.sample(num_blocks).each_with_index do |position, number|
+    (0..27).to_a.sample(num_blocks).each_with_index do |position, number|
       @numbers << Number.new(number+1, position)
     end
   end
@@ -71,19 +74,33 @@ class GameScene < BaseScene
       @numbers.each do |number|
         number_label = childNodeWithName(number.value.to_s)
         removeChild(number_label)
-
         add_star(number_label.position, number_label.name)
       end
+      @timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target:self, selector:'timerFired', userInfo:nil, repeats:true)
     end
   end
 
   def touchesBegan(touches, withEvent: event)
-    return if !@touch_enabled
-
     touch = touches.anyObject
     location = touch.locationInNode(self)
     node = nodeAtPoint(location)
     puts node.name
+
+    if node.name == "pause"
+      if self.isPaused
+        self.paused = false
+        @timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target:self, selector:'timerFired', userInfo:nil, repeats:true)
+      else
+        self.paused = true
+        @timer.invalidate
+      end
+    else
+      number_tapped(node)
+    end
+  end
+
+  def number_tapped(node)
+    return if !@touch_enabled or self.isPaused
 
     number = @numbers.shift
     if number.value != node.name.to_i
@@ -112,5 +129,26 @@ class GameScene < BaseScene
     scene = ScoreScene.alloc.initWithSize(self.view.bounds.size)
     scene.scaleMode = SKSceneScaleModeAspectFill
     self.view.presentScene scene
+  end
+
+  def add_timer_label
+    @timer_label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
+    @timer_label.position = CGPointMake(max_x / 8, max_y * 15/16)
+    @timer_label.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft
+    @timer_label.name = 'timer'
+    addChild @timer_label
+  end
+
+  def add_pause_label
+    label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
+    label.text = 'Pause'
+    label.position = CGPointMake(max_x * 7/8, max_y * 15/16)
+    label.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeRight
+    label.name = 'pause'
+    addChild label
+  end
+
+  def timerFired
+    @timer_label.text = "%.1f" % (@duration += 0.1)
   end
 end
