@@ -7,6 +7,7 @@ class MenuScene < BaseScene
     add_start_label
     add_difficulty_labels
     add_credits_label
+    add_guide_label
     view.score = 0
     if view.high_score > 0
       add_high_score_label
@@ -60,10 +61,20 @@ class MenuScene < BaseScene
     addChild label
   end
 
+  def add_guide_label
+    label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
+    label.text = "Guide"
+    label.fontSize *= 1.5
+    label.position = CGPointMake(mid_x, (max_y / 8) * 1)
+    label.name = "guide"
+    addChild label
+  end
+
   def add_high_score_label
     label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
     label.text = "Best score: #{self.view.high_score}"
-    label.position = CGPointMake(mid_x, (max_y / 8) * 1)
+    label.fontSize *= 0.75
+    label.position = CGPointMake(mid_x, (max_y / 32) * 1)
     label.name = "highscore"
     addChild label
   end
@@ -94,6 +105,10 @@ class MenuScene < BaseScene
       difficulty_label.text = "Difficulty #{self.view.difficulty}"
     elsif node.name == "credits"
       scene = CreditsScene.alloc.initWithSize(view.bounds.size)
+      scene.scaleMode = SKSceneScaleModeAspectFill
+      self.view.presentScene scene
+    elsif node.name == "guide"
+      scene = GuideScene.alloc.initWithSize(view.bounds.size)
       scene.scaleMode = SKSceneScaleModeAspectFill
       self.view.presentScene scene
     end

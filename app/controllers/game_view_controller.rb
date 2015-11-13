@@ -1,9 +1,9 @@
 class GameViewController < UIViewController
   def loadView
     view = BaseSKView.new
-    view.showsFPS = true
-    view.showsNodeCount = true
-    view.showsDrawCount = true
+    # view.showsFPS = true
+    # view.showsNodeCount = true
+    # view.showsDrawCount = true
 
     @defaults = NSUserDefaults.standardUserDefaults
     view.difficulty = @defaults['level'] || 1
