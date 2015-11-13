@@ -25,6 +25,7 @@ class MenuScene < BaseScene
   def add_start_label
     label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
     label.text = "Start Game"
+    label.fontSize *= 1.5
     label.position = CGPointMake(mid_x, (max_y / 8) * 4)
     label.name = "start"
     addChild label
@@ -53,6 +54,7 @@ class MenuScene < BaseScene
   def add_credits_label
     label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
     label.text = "Credits"
+    label.fontSize *= 1.5
     label.position = CGPointMake(mid_x, (max_y / 8) * 2)
     label.name = "credits"
     addChild label
