@@ -19,7 +19,8 @@ class GameScene < BaseScene
   def init_grid
     @numbers = []
     num_blocks = self.view.difficulty + 2
-    (0..27).to_a.sample(num_blocks).each_with_index do |position, number|
+    max_blocks = max_level + 2
+    (0..(max_blocks - 1)).to_a.sample(num_blocks).each_with_index do |position, number|
       @numbers << Number.new(number+1, position)
     end
   end
@@ -30,7 +31,7 @@ class GameScene < BaseScene
 
   def render_number(number)
     label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
-    label.fontSize *= 2
+    label.fontSize *= 2 * font_size_multiplier
     label.text = "#{number.value}"
     label.position = CGPointMake(pos_x(number.position), pos_y(number.position))
     label.name = "#{number.value}"
@@ -38,11 +39,11 @@ class GameScene < BaseScene
   end
 
   def pos_x(pos)
-    (0.5 + pos % 4) * (max_x / 4) + Random.new.rand(-10..10)
+    (0.5 + pos % max_rows) * (max_x / max_rows) + Random.new.rand(-shake..shake)
   end
   
   def pos_y(pos)
-    (0.25 + pos / 4) * (max_y / 8) + Random.new.rand(-10..10)
+    (0.25 + pos / max_rows) * (max_y / max_columns) + Random.new.rand(-shake..shake)
   end
 
   def add_star(position, name)
@@ -51,7 +52,7 @@ class GameScene < BaseScene
     star = SKSpriteNode.spriteNodeWithTexture(texture)
     star.position = position
     star.name = name
-    star.size = CGSizeMake(75, 75)
+    star.size = CGSizeMake(75 * font_size_multiplier, 75 * font_size_multiplier)
     star.anchorPoint = CGPointMake(0.5, 0.1)
 
     addChild star
@@ -59,7 +60,7 @@ class GameScene < BaseScene
 
   def add_number(position, name)
     label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
-    label.fontSize *= 2
+    label.fontSize *= 2 * font_size_multiplier
     label.text = name
     label.position = position
     label.name = name
@@ -147,16 +148,18 @@ class GameScene < BaseScene
 
   def add_timer_label
     @timer_label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
-    @timer_label.position = CGPointMake(max_x / 8, max_y * 15/16)
+    @timer_label.position = CGPointMake(max_x / max_columns, max_y * (max_columns * 2 - 1) / (max_columns * 2))
     @timer_label.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft
     @timer_label.name = 'timer'
+    @timer_label.fontSize *= font_size_multiplier
     addChild @timer_label
   end
 
   def add_pause_label
     label = SKLabelNode.labelNodeWithFontNamed("Gill Sans")
     label.text = 'Pause'
-    label.position = CGPointMake(max_x * 7/8, max_y * 15/16)
+    label.fontSize *= font_size_multiplier
+    label.position = CGPointMake(max_x * (max_columns - 1) / max_columns, max_y * (max_columns * 2 - 1) / (max_columns * 2))
     label.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeRight
     label.name = 'pause'
     label.zPosition = 40 # must be above shadow

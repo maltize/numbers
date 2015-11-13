@@ -43,7 +43,25 @@ class BaseScene < SKScene
   end
 
   def max_level
-    27
+    (max_rows * max_columns) - max_rows - 2
+  end
+
+  def font_size_multiplier
+    base = 32
+    default = 2
+    default - (max_rows * max_columns).to_f / base
+  end
+
+  def shake
+    5
+  end
+
+  def max_rows
+    3
+  end
+
+  def max_columns
+    6
   end
 
   def mid_x
