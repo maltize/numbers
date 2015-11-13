@@ -43,7 +43,7 @@ class BaseScene < SKScene
   end
 
   def max_level
-    27
+    26
   end
 
   def mid_x

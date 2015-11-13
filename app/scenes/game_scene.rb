@@ -108,6 +108,7 @@ class GameScene < BaseScene
 
     number = @numbers.shift
     if number.value != node.name.to_i
+      @numbers.unshift(number)
       self.view.score += calculate_score
       go_to_score_scene
       return
