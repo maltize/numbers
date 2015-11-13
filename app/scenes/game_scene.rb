@@ -118,7 +118,7 @@ class GameScene < BaseScene
 
     if @numbers.empty?
       self.view.difficulty += 1
-      if self.view.difficulty >= 30
+      if self.view.difficulty >= max_level
         go_to_score_scene
       else
         scene = CountDownScene.alloc.initWithSize(self.view.bounds.size)
