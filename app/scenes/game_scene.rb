@@ -46,7 +46,7 @@ class GameScene < BaseScene
     star = SKSpriteNode.spriteNodeWithTexture(@star_texture)
     star.position = position
     star.name = name
-    star.size = CGSizeMake(65, 65)
+    star.size = CGSizeMake(75, 75)
     star.anchorPoint = CGPointMake(0.5, 0.1)
 
     addChild star
