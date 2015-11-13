@@ -7,7 +7,6 @@ class GameScene < BaseScene
     @start_time = nil
     @countdown = 2
     @touch_enabled = false
-    @star_texture = SKTexture.textureWithImageNamed("numbers-star.png")
     init_grid
     puts @numbers
     render_board
@@ -47,7 +46,10 @@ class GameScene < BaseScene
   end
 
   def add_star(position, name)
-    star = SKSpriteNode.spriteNodeWithTexture(@star_texture)
+    star_number = self.view.difficulty % 4
+    texture = SKTexture.textureWithImageNamed("numbers-star-#{star_number}.png")
+
+    star = SKSpriteNode.spriteNodeWithTexture(texture)
     star.position = position
     star.name = name
     star.size = CGSizeMake(75, 75)
