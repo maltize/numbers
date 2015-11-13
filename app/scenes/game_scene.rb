@@ -14,6 +14,7 @@ class GameScene < BaseScene
     add_timer_label
     add_pause_label
     @duration = 0
+    @timer = nil
   end
 
   def init_grid
@@ -84,7 +85,9 @@ class GameScene < BaseScene
     node = nodeAtPoint(location)
     puts node.name
 
-    if node.name == "pause"
+    if node.name == 'pause'
+      return unless @timer
+
       if self.isPaused
         self.paused = false
         @timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target:self, selector:'timerFired', userInfo:nil, repeats:true)
